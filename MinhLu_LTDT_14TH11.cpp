@@ -26,27 +26,43 @@ void print_file(){
 			printf("\n");
 	}
 }
-int baccuadinh( int a[10][10], int n){
-	int bac=0;
-	int x;
-	printf("\nNhap dinh can tinh bac: "); scanf("%d", &x);
-	for( int j=1; j<=n; j++){
-		if( x == j ){
-			if( a[x][j] != 0 ){
-			bac += 2;
-		}
-	}
-		else{
-			if( a[x][j] != 0 ){
-				bac += 1;
+int ktra_dxung( int a[10][10], int n){
+	for( int i=1; i<=n; i++){
+		for( int j=1; j<=n; j++){
+			if( a[i][j] != a[j][i]){
+				return 1;
+				}
 			}
-		} 
-
-	}
+		}
+return 0;
+}
+int baccuadinh( int a[10][10], int n, int x){
+	int bac=0;
+	for( int j=1; j<=n; j++)
+		bac = bac + a[x][j];
+	if( a[x][x]!=0){
+		bac = bac + a[x][x];
+}
 	printf("\nSo bac cua dinh x = %d la %d", x,bac);
+}
+int baccuadinh_ch( int a[10][10], int n, int x){
+	int bacvao=0;
+	int bacra =0;
+	for( int j=1; j<=n; j++){
+			bacvao = bacvao + a[j][x];
+			bacra = bacra + a[x][j];
+	}
+	printf("\nSo bac vao cua dinh x = %d la %d", x,bacvao);
+	printf("\nSo bac ra cua dinh x = %d la %d", x,bacra);
 }
 int main(){
 	read_file();
 	print_file();
-	baccuadinh(a,n);
+	int x;
+	printf("\nNhap dinh can tinh bac: "); scanf("%d", &x);
+	if( ktra_dxung(a,n) == 0){
+		baccuadinh(a,n,x);
+	}else{
+		baccuadinh_ch(a,n,x);
+	}
 }
